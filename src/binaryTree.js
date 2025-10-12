@@ -6,9 +6,40 @@ class Tree {
     }
 
     buildTree(array){
-
-
+        const sortedArray = this.sort(array);
+        return this.buildTreeHelp(sortedArray)
+        
     }
+
+    buildTreeHelp(array){
+        
+        const root = new Node()
+        if(array.length <= 1){
+            root.data = array[0]
+            return root
+        }
+        const mid = Math.floor((array.length/2))
+        root.data = array[mid]
+        const leftSubTree = this.buildTreeHelp(array.slice(0,mid))
+        const rightSubTree = this.buildTreeHelp(array.slice(mid+1,))
+        root.leftChild = leftSubTree
+        root.rightChild = rightSubTree
+        return root
+        
+    }
+
+    prettyPrint(node, prefix = '', isLeft = true){
+        if (node === null) {
+            return;
+        }
+        if (node.rightChild !== null) {
+            this.prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+        if (node.leftChild !== null) {
+            this.prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
+    };
 
     sort(array){
         let seen = {}
@@ -19,6 +50,7 @@ class Tree {
             }
             else{
                 array2.push(array[i])
+                seen[array[i]] = 1
             }
         }
         return mergeSort(array2)
