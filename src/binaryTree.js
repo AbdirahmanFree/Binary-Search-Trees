@@ -2,6 +2,7 @@ import { mergeSort } from "./mergeSort";
 class Tree {
     constructor(array){
         this.root = this.buildTree(array)
+        this.root.parent = null;
 
     }
 
@@ -12,7 +13,7 @@ class Tree {
     }
 
     buildTreeHelp(array){
-        
+        if (array.length === 0) return null;
         const root = new Node()
         if(array.length <= 1){
             root.data = array[0]
@@ -22,8 +23,14 @@ class Tree {
         root.data = array[mid]
         const leftSubTree = this.buildTreeHelp(array.slice(0,mid))
         const rightSubTree = this.buildTreeHelp(array.slice(mid+1,))
-        root.leftChild = leftSubTree
-        root.rightChild = rightSubTree
+        if(leftSubTree != undefined){
+            root.leftChild = leftSubTree
+            leftSubTree.parent = root
+        }
+        if(rightSubTree != undefined){
+            root.rightChild = rightSubTree
+            rightSubTree.parent = root
+        }
         return root
         
     }
@@ -134,6 +141,39 @@ class Tree {
         return null;
     }
 
+    deleteItem(value){
+        let root = this.find(value)
+        if(root == null){
+            return null
+        }
+        let newData = null
+        if(root.rightChild == null && root.leftChild == null){
+            let parent = root.parent
+            if(parent.rightChild == root){
+                parent.rightChild = null;
+            }
+            else{
+                parent.leftChild = null;
+            }
+
+            
+            
+            return this.root
+        }
+        else if(root.rightChild == null){
+            newData = this.findMax(root.leftChild)
+            let temp = newData
+            this.deleteItem(newData)
+            root.data = temp;
+        }
+        else {
+            newData = this.findMin(root.rightChild)
+            let temp = newData
+            this.deleteItem(newData)
+            root.data = temp;
+        }
+    }
+
     
 }
 
@@ -148,6 +188,7 @@ class Node {
         this.data = data
         this.leftChild = leftChild
         this.rightChild = rightChild
+        this.parent = parent
     }
 }
 
