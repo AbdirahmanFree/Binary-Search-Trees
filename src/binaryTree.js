@@ -192,4 +192,55 @@ class Node {
     }
 }
 
+class Queue {
+  constructor(size = 4) {
+    this.size = size;
+    this.array = new Array(size).fill(null);
+    this.front = 0;
+    this.rear = 0;
+    this.count = 0;
+  }
+
+  isEmpty() { return this.count === 0; }
+  isFull() { return this.count === this.size; }
+
+  enqueue(element) {
+    if (this.isFull()) this.expand();
+
+    this.array[this.rear] = element;
+    this.rear = (this.rear + 1) % this.size;
+    this.count++;
+  }
+
+  dequeue() {
+    if (this.isEmpty()) return null;
+
+    const val = this.array[this.front];
+    this.array[this.front] = null;
+    this.front = (this.front + 1) % this.size;
+    this.count--;
+    return val;
+  }
+
+  expand() {
+    const newSize = this.size * 2;
+    const newArray = new Array(newSize).fill(null);
+
+    // copy elements in correct order
+    for (let i = 0; i < this.count; i++) {
+      newArray[i] = this.array[(this.front + i) % this.size];
+    }
+
+    this.array = newArray;
+    this.size = newSize;
+    this.front = 0;
+    this.rear = this.count;
+  }
+
+  peek() {
+    return this.isEmpty() ? null : this.array[this.front];
+  }
+}
+
+
 export{Tree}
