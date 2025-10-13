@@ -197,6 +197,57 @@ class Tree {
         
 
     }
+    inOrderForEach(callback){
+        if(typeof callback != 'function'){
+            throw console.error("need function");
+        }
+        this.inOrderHelper(callback,this.root)
+
+    }
+    inOrderHelper(callback, root){
+        if(root == null){
+            return
+        }
+        
+        this.inOrderHelper(callback,root.leftChild)
+        callback(root)
+        this.inOrderHelper(callback,root.rightChild)
+    }
+
+    preOrderForEach(callback){
+        if(typeof callback != 'function'){
+            throw console.error("need function");
+        }
+        this.preOrderHelper(callback,this.root)
+
+    }
+
+    preOrderHelper(callback, root){
+        if(root == null){
+            return;
+        }
+        callback(root)
+        this.preOrderHelper(callback, root.leftChild)
+        this.preOrderHelper(callback, root.rightChild)
+
+    }
+
+    postOrderForEach(callback){
+        if(typeof callback != 'function'){
+            throw console.error("need function");
+        }
+        this.postOrderHelper(callback,this.root)
+    }
+
+    postOrderHelper(callback, root){
+        if(root == null){
+            return;
+        }
+        this.preOrderHelper(callback, root.leftChild)
+        this.preOrderHelper(callback, root.rightChild)
+        callback(root)
+
+    }
     
 
     

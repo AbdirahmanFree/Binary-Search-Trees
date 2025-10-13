@@ -8,8 +8,10 @@ myTree.deleteItem(2)
 myTree.prettyPrint(myTree.root)
 console.log(myTree)
 
-myTree.levelOrderForEach((root)=> {
-    root.data = root.data *2
+myTree.postOrderForEach((root)=> {
+    console.log(root.data)
+    root.data = root.data *5
+    
 })
 
 myTree.prettyPrint(myTree.root)
