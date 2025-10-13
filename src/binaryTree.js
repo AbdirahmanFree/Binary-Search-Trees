@@ -56,6 +56,43 @@ class Tree {
         return mergeSort(array2)
 
     }
+
+    insert(value){
+        const node = new Node()
+        node.data = value
+        if(this.root === null){
+            return node
+        }
+        let root = this.root;
+        let subTree;
+        if (root.data < value){
+            subTree = root.rightChild
+        }
+        else{
+            subTree = root.leftChild
+        }
+            
+        
+        while(subTree != null){
+            root = subTree
+            if (subTree.data > value){
+                subTree = subTree.leftChild
+            }
+            else{
+                subTree = subTree.rightChild
+            }
+
+        }
+        if (root.data > value){
+                root.leftChild = node
+        }
+        else {
+            root.rightChild = node
+        }
+        return this.root
+
+
+    }
 }
 
 
