@@ -75,6 +75,9 @@ class Tree {
         
         while(subTree != null){
             root = subTree
+            if(subTree.data == value){
+                return false
+            }
             if (subTree.data > value){
                 subTree = subTree.leftChild
             }
@@ -93,6 +96,45 @@ class Tree {
 
 
     }
+    
+
+    findMax(root){
+        if(root.rightChild == null){
+            return root.data
+        }
+        this.findMax(root.rightChild)
+    }
+
+    findMin(root){
+        if(root.leftChild == null){
+            return root.data
+        }
+        this.findMin(root.leftChild)
+    }
+
+    find(value){
+        if(this.root.data == value){
+            return this.root
+        }
+
+       
+        let root = this.root
+
+        while(root != null){
+            if(root.data == value){
+                return root
+            }
+            else if(root.data < value){
+                root = root.rightChild
+            }
+            else{
+                root = root.leftChild
+            }
+        }
+        return null;
+    }
+
+    
 }
 
 
