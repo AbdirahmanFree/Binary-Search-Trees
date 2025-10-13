@@ -174,6 +174,31 @@ class Tree {
         }
     }
 
+    levelOrderForEach(callback){
+       if(typeof callback != 'function'){
+        throw console.error("need function");
+       }
+       
+        if(this.root == null){
+            return
+        }
+        const queue = new Queue(6)
+        queue.enqueue(this.root)
+        while(! queue.isEmpty()){
+            let root = queue.dequeue()
+            callback(root)
+            if(root.leftChild != null){
+                queue.enqueue(root.leftChild)
+            }
+            if(root.rightChild != null){
+                queue.enqueue(root.rightChild)
+            }
+        }
+        
+
+    }
+    
+
     
 }
 
