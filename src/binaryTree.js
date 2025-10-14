@@ -95,9 +95,11 @@ class Tree {
         }
         if (root.data > value){
                 root.leftChild = node
+                node.parent = root
         }
         else {
             root.rightChild = node
+            node.parent = root
         }
         return this.root
 
@@ -250,10 +252,75 @@ class Tree {
     }
 
     height(value){
+        let root = this.root
+        let count = 0
+        while(root != null){
+            if(root.data == value){
+                return this.heightHelper(root)
+            }
+            if (value > root.data){
+                root = root.rightChild
+                
+            }
+            else{
+                root = root.leftChild
+            }
+        }
+        return null
 
     }
-    heightHelper(){
+
+    heightHelper(node){
+        if( node == null){
+            return 0
+        }
+        if(node.leftChild == null && node.rightChild == null){
+            return 0
+        }
         
+        const leftTreeDepth = this.heightHelper(node.leftChild)
+        const rightTreeDepth = this.heightHelper(node.rightChild)
+        return 1 + Math.max(leftTreeDepth, rightTreeDepth)
+    }
+
+    depth(value){
+        let root = this.root
+        let count = 0
+        while(root != null){
+            if(root.data == value){
+                return count
+            }
+            if (value > root.data){
+                root = root.rightChild
+                count+=1
+            }
+            else{
+                root = root.leftChild
+                count +=1
+            }
+        }
+        return null
+
+    }
+
+    checkBalance(node) {
+        if (node === null) return { balanced: true, height: 0 };
+
+        const left = this.checkBalance(node.leftChild);
+        const right = this.checkBalance(node.rightChild);
+
+        const balanced =
+            left.balanced &&
+            right.balanced &&
+            Math.abs(left.height - right.height) <= 1;
+
+        const height = 1 + Math.max(left.height, right.height);
+
+        return { balanced, height };
+    }
+
+    isBalanced(node = this.root) {
+        return this.checkBalance(node).balanced;
     }
     
 
