@@ -248,6 +248,13 @@ class Tree {
         callback(root)
 
     }
+
+    height(value){
+
+    }
+    heightHelper(){
+        
+    }
     
 
     
