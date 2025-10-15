@@ -1,4 +1,4 @@
-import { mergeSort } from "./mergeSort";
+import { mergeSort } from "./mergeSort.js";
 class Tree {
     constructor(array){
         this.root = this.buildTree(array)

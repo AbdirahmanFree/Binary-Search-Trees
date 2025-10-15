@@ -1,4 +1,4 @@
-import { Tree } from "./binaryTree";
+import { Tree } from "./binaryTree.js";
 
 
 
