@@ -322,6 +322,18 @@ class Tree {
     isBalanced(node = this.root) {
         return this.checkBalance(node).balanced;
     }
+
+    rebalance(node, array= []){
+        if(node == null){
+            return 
+        }
+        this.rebalance(node.leftChild, array)
+        array.push(node.data)
+        this.rebalance(node.rightChild, array)
+        this.root = this.buildTree(array)
+        this.root.parent = null
+        
+    }
     
 
     
